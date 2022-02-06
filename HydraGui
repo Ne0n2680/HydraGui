@@ -2050,3 +2050,5 @@ local function LWMJI_fake_script() -- Hydra.LocalScript
 	})
 end
 coroutine.wrap(LWMJI_fake_script)()
+
+print("Hydra Fe has loaded.")
