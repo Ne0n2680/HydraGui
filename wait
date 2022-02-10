@@ -1125,7 +1125,8 @@ GetPlayer = function(str, noerror)
         return (sub(lower(v.Name), 1, #str) == str) or (sub(lower(v.DisplayName), 1, #str) == str);
     end)
     if (not next(Players) and not noerror) then
-        Utils.notify(LocalPlayer, "Fail", format("Couldn't find player %s", str));
+        print("Player not found")
+        --Utils.notify(LocalPlayer, "Fail", format("Couldn't find player %s", str));
     end
     return Players
 end
@@ -4880,194 +4881,219 @@ AddCommand("unfly", {}, "unflies your character", {3}, function()
     GetHumanoid().PlatformStand = false
 end)
 
-AddCommand("Angel", {}, "Angel", {}, function(Caller, Args, CEnv)
+AddCommand("commands", {"cmds"}, "shows you all the commands listed in fates admin", {}, function()
+    if (not CommandsLoaded) then
+        local CommandsList = Commands.Frame.List
+        Utils.SmoothScroll(CommandsList, .14);
+        for _, v in next, CommandsTable do
+            if (not FindFirstChild(CommandsList, v.Name)) then
+                local Clone = Clone(Command)
+                Utils.Hover(Clone, "BackgroundColor3");
+                Utils.ToolTip(Clone, v.Name .. "\n" .. v.Description);
+                Clone.CommandText.Text = v.Name .. (#v.Aliases > 0 and " (" ..concat(v.Aliases, ", ") .. ")" or "");
+                Clone.Name = v.Name
+                Clone.Visible = true
+                Clone.Parent = CommandsList
+            end
+        end
+        Commands.Frame.List.CanvasSize = UDim2.fromOffset(0, Commands.Frame.List.UIListLayout.AbsoluteContentSize.Y);
+        CommandsTransparencyClone = Clone(Commands);
+        Utils.SetAllTrans(Commands)
+        CommandsLoaded = true
+    end
+    Commands.Visible = true
+    Utils.TweenAllTransToObject(Commands, .25, CommandsTransparencyClone);
+    return "Commands Loaded"
+end)
+
+AddCommand("angel", {}, "Angel", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/The%20Angel.lua'))()
 end)
 
-AddCommand("Sun", {}, "sun", {}, function(Caller, Args, CEnv)
+AddCommand("sun", {}, "sun", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/The%20Sun%20Is%20A%20Deadly%20Laser.lua'))()
 end)
 
-AddCommand("Cop", {}, "cop", {}, function(Caller, Args, CEnv)
+AddCommand("cop", {}, "cop", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/itsthecops'))()
 end)
 
-AddCommand("GrabKnifeV3", {}, "GrabKnife3", {}, function(Caller, Args, CEnv)
+AddCommand("grabknifeV3", {}, "GrabKnife3", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/grabknife'))()
 end)
 
-AddCommand("SCP", {}, "SCP", {}, function(Caller, Args, CEnv)
+AddCommand("scp", {}, "SCP", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/SCP-106.lua'))()
 end)
 
-AddCommand("Dragon", {}, "Dragon", {}, function(Caller, Args, CEnv)
+AddCommand("dragon", {}, "Dragon", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Dragonian%20Pyramus.lua'))()
 end)
 
-AddCommand("BigBlack", {}, "bugblack", {}, function(Caller, Args, CEnv)
+AddCommand("bigblack", {}, "bugblack", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Nebula%20Star%20Glitcher.lua'))()
 end)
 
-AddCommand("Pacifist", {}, "SCP", {}, function(Caller, Args, CEnv)
+AddCommand("pacifist", {}, "SCP", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/AdminPanel/main/ramd'))()
 end)
 
-AddCommand("Assasian", {}, "assasian", {}, function(Caller, Args, CEnv)
+AddCommand("assasian", {}, "assasian", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Hidden%20Blades.lua'))()
 end)
 
-AddCommand("LightningCannon", {}, "Lightning", {}, function(Caller, Args, CEnv)
+AddCommand("lightningcannon", {}, "Lightning", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Lightning%20Cannon.lua'))()
 end)
 
-AddCommand("EyeBall", {}, "EyeBall", {}, function(Caller, Args, CEnv)
+AddCommand("eyeball", {}, "EyeBall", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Eyo%20Zen.lua'))()
 end)
 
-AddCommand("Sword", {}, "Sword", {}, function(Caller, Args, CEnv)
+AddCommand("sword", {}, "Sword", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Demonic%20Sword.lua'))()
 end)
 
-AddCommand("Onmigod", {}, "Omnigod", {}, function(Caller, Args, CEnv)
+AddCommand("onmigod", {}, "Omnigod", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Omni%20God.lua'))()
 end)
 
-AddCommand("Zen", {}, "zen", {}, function(Caller, Args, CEnv)
+AddCommand("zen", {}, "zen", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/FEZen.lua'))()
 end)
 
-AddCommand("GodSlayer", {}, "GodSlayer", {}, function(Caller, Args, CEnv)
+AddCommand("godslayer", {}, "GodSlayer", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/God%20Eater.lua'))()
 end)
 
-AddCommand("Caducus", {}, "Caducus", {}, function(Caller, Args, CEnv)
+AddCommand("caducus", {}, "Caducus", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/cadacus.lua'))()
 end)
 
-AddCommand("TheMask", {}, "TheMask", {}, function(Caller, Args, CEnv)
+AddCommand("themask", {}, "TheMask", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Mask.lua'))()
 end)
 
-AddCommand("FlameThrower", {}, "FlameThrower", {}, function(Caller, Args, CEnv)
+AddCommand("flamethrower", {}, "FlameThrower", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/flamethrower'))()
 end)
 
-AddCommand("Warden", {}, "Warden", {}, function(Caller, Args, CEnv)
+AddCommand("warden", {}, "Warden", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/The%20Warden.lua'))()
 end)
 
-AddCommand("Incension", {}, "Incension", {}, function(Caller, Args, CEnv)
+AddCommand("incension", {}, "Incension", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Incension%20Reborn.lua'))()
 end)
 
-AddCommand("GoldenClaws", {}, "GoldenClaws", {}, function(Caller, Args, CEnv)
+AddCommand("goldenclaws", {}, "GoldenClaws", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Golden%20Claws.lua'))()
 end)
 
-AddCommand("StarGlitcher", {}, "StarGlitcher", {}, function(Caller, Args, CEnv)
+AddCommand("starglitcher", {}, "StarGlitcher", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Free%20Star%20Glitcher.lua'))()
 end)
 
-AddCommand("Pharoh", {}, "Pharoh", {}, function(Caller, Args, CEnv)
+AddCommand("pharoh", {}, "Pharoh", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://github.com/Ne0n2680/x/blob/main/whitesword'))()
 end)
 
-AddCommand("Reaper", {}, "Reaper", {}, function(Caller, Args, CEnv)
+AddCommand("reaper", {}, "Reaper", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Reaper.lua'))()
 end)
 
-AddCommand("Echo", {}, "Echo", {}, function(Caller, Args, CEnv)
+AddCommand("echo", {}, "Echo", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/echo'))()
 end)
 
-AddCommand("MasterOfElemtes", {}, "MasterOfElemtes", {}, function(Caller, Args, CEnv)
+AddCommand("elements", {}, "MasterOfElemtes", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Master%20Of%20Elements.lua'))()
 end)
 
-AddCommand("JohnDoe", {}, "JohnDoe", {}, function(Caller, Args, CEnv)
+AddCommand("johndoe", {}, "JohnDoe", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/Johndoe'))()
 end)
 
-AddCommand("Drone", {}, "Drone", {}, function(Caller, Args, CEnv)
+AddCommand("drone", {}, "Drone", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/drone'))()
 end)
-AddCommand("Magic", {}, "Magic", {}, function(Caller, Args, CEnv)
+AddCommand("magic", {}, "Magic", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Magic.lua'))()
 end)
 
-AddCommand("Minigun", {}, "Minigun", {}, function(Caller, Args, CEnv)
+AddCommand("minigun", {}, "Minigun", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/minigun'))()
 end)
 
-AddCommand("Sniper", {}, "Sniper", {}, function(Caller, Args, CEnv)
+AddCommand("sniper", {}, "Sniper", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/sniper'))()
 end)
 
-AddCommand("Killer", {}, "Kileer", {}, function(Caller, Args, CEnv)
+AddCommand("killer", {}, "Kileer", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/killer'))()
 end)
 
-AddCommand("SharpShooter", {}, "SharpShooter", {}, function(Caller, Args, CEnv)
+AddCommand("sharpshooter", {}, "SharpShooter", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Sharpshooter.lua'))()
 end)
 
-AddCommand("Overseer", {}, "overseer", {}, function(Caller, Args, CEnv)
+AddCommand("overseer", {}, "overseer", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/Overseer'))()
 end)
 
-AddCommand("NoobSwitcher", {}, "NoobSwitcher", {}, function(Caller, Args, CEnv)
+AddCommand("noobswitcher", {}, "NoobSwitcher", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/noob%20swither'))()
 end)
-AddCommand("BigDaddy", {}, "BigDaddy", {}, function(Caller, Args, CEnv)
+AddCommand("bigdaddy", {}, "BigDaddy", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Big%20Daddy.lua'))()
 end)
 
-AddCommand("Chara", {}, "Chara", {}, function(Caller, Args, CEnv)
+AddCommand("chara", {}, "Chara", {}, function(Caller, Args, CEnv)
    loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/knife%20girl'))()
 end)
 
-AddCommand("Scythe", {}, "Scythe", {}, function(Caller, Args, CEnv)
+AddCommand("scythe", {}, "Scythe", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/Scythe'))()
 end)
 
-AddCommand("DarthVader", {}, "DarthVadar", {}, function(Caller, Args, CEnv)
+AddCommand("darthvader", {}, "DarthVadar", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/dathvader'))()
 end)
 
-AddCommand("ZenithRifle", {}, "rifle", {}, function(Caller, Args, CEnv)
+AddCommand("Zenithrifle", {}, "rifle", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/zenith%20rifile'))()
 end)
-AddCommand("BanHammer", {}, "BanHammer", {}, function(Caller, Args, CEnv)
+AddCommand("banhammer", {}, "BanHammer", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/thehammer'))()
 end)
-AddCommand("RainbowKing", {}, "RainbowKing", {}, function(Caller, Args, CEnv)
+AddCommand("rainbowking", {}, "RainbowKing", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/rainbowking'))()
 end)
-AddCommand("NoobBat", {}, "NoobBat", {}, function(Caller, Args, CEnv)
+AddCommand("noobbat", {}, "NoobBat", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/noobbat'))()
 end)
-AddCommand("GloveAndSword", {}, "GloveAndSword", {}, function(Caller, Args, CEnv)
+AddCommand("gloveandsword", {}, "GloveAndSword", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Glove%20and%20sword.lua'))()
 end)
-AddCommand("AbyssSword", {}, "AbyssSword", {}, function(Caller, Args, CEnv)
+AddCommand("abysssword", {}, "AbyssSword", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/abyss%20sword'))()
 end)
-AddCommand("TouhouMagic", {}, "Magic2", {}, function(Caller, Args, CEnv)
+AddCommand("touhoumagic", {}, "Magic2", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Evolution-Hub/main/Touhou%20Script.lua'))()
 end)
-AddCommand("Verlex", {}, "verlex", {}, function(Caller, Args, CEnv)
+AddCommand("verlex", {}, "verlex", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Verlex.lua'))()
 end)
-AddCommand("Ak47", {}, "ak47", {}, function(Caller, Args, CEnv)
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/x/main/ak47'))()
+AddCommand("guns", {}, "ak47", {}, function(Caller, Args, CEnv)
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/HydraGui/main/giveguns'))()
 end)
-AddCommand("Btools", {}, "btools", {}, function(Caller, Args, CEnv)
+AddCommand("btools", {}, "btools", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://pastebin.com/raw/18YmULGF'))()
 end)
-AddCommand("GravityGun", {}, "GravityGun", {}, function(Caller, Args, CEnv)
+AddCommand("gravitygun", {}, "GravityGun", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/Roblox-utg/main/gravity%20gun'))()
 end)
-AddCommand("GrabKnifeV4", {}, "GrabKnifeV4", {}, function(Caller, Args, CEnv)
+AddCommand("grabknifev4", {}, "GrabKnifeV4", {}, function(Caller, Args, CEnv)
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Ne0n2680/HydraGui/main/GrabKinfev34'))()
 end)
 
